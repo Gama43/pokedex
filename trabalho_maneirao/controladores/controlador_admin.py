@@ -1,5 +1,5 @@
-from trabalho_maneirao.view.tela_admin import TelaAdmin
-from trabalho_maneirao.entidade.treinador import Treinador
+from view.tela_admin import TelaAdmin
+from entidade.treinador import Treinador
 
 class ControleTreinador:
 
@@ -7,8 +7,13 @@ class ControleTreinador:
         self.__treinadores = []
         self.__tela_treinador = TelaAdmin()
         self.__controlador_sistema = controlador_sistema
-        self.lista_usuarios=[]
-        self.lista_idpokedex=[]
+        # self.__lista_usuarios=[]
+        # self.lista_idpokedex=[]
+
+
+    # @property
+    # def lista_usuarios(self):
+    #     return self.__lista_usuarios
 
     @property
     def treinadores(self):
@@ -30,8 +35,9 @@ class ControleTreinador:
         idpokedex=dados_treinador["idpokedex"]
         treinador=Treinador(nome,idpokedex)
         self.__treinadores.append(treinador)
-        self.lista_usuarios.append(nome)
-        self.lista_idpokedex.append(idpokedex)
+        print(self.__treinadores)
+        # self.lista_usuarios.append(nome)
+        # self.lista_idpokedex.append(idpokedex)
 
 
     def lista_treinadores(self):
@@ -64,6 +70,14 @@ class ControleTreinador:
             self.lista_treinadores()
         else:
             self.__tela_treinador.mostra_mensagem("ATENCAO: Esse treinador não existe")
+
+
+
+
+    def valida_treinador(self,nome,idpokedex):
+        for treinador in self.__treinadores:
+            if treinador.nome==nome and treinador.idpokedex==int(idpokedex):
+                return treinador
 
 
 
