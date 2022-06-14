@@ -1,10 +1,9 @@
-from trabalho_maneirao.view.tela_usuario import TelaUsuario
-from trabalho_maneirao.view.tela_login import TelaLogin
-from trabalho_maneirao.view.tela_pokemon import TelaPokemon
-from trabalho_maneirao.entidade.pokemon import Pokemon
-from trabalho_maneirao.entidade.treinador import Treinador
-from trabalho_maneirao.controladores.controlador_admin import ControleTreinador
-
+from view.tela_usuario import TelaUsuario
+from view.tela_login import TelaLogin
+from view.tela_pokemon import TelaPokemon
+from entidade.pokemon import Pokemon
+from entidade.treinador import Treinador
+from controladores.controlador_admin import ControleTreinador
 
 
 class ControladorUsuario():
@@ -33,12 +32,11 @@ class ControladorUsuario():
         regiao = dados_pokemon["regiao"]
         pokemon = Pokemon(nome, tipo, level, ataques, defesa, regiao)
 
-        self.__treinador.lista_pokemons.append(pokemon)
-
+        self.__controlador_sistema.usuario_logado.lista_pokemons.append(pokemon)
 
     def lista_pokemons(self):
 
-        for pokemon in self.__treinador.lista_pokemons:
+        for pokemon in self.__controlador_sistema.usuario_logado.lista_pokemons:
             self.__tela_pokemon.mostra_pokemon({"nome": pokemon.nome, "tipo": pokemon.tipo,"level": pokemon.level, "ataques": pokemon.ataques, "defesa": pokemon.defesa, "regiao": pokemon.regiao})
 
     def alterar_pokemon(self):
