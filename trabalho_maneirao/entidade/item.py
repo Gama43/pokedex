@@ -23,7 +23,7 @@ class Item:
 
     @property
     def raridade(self):
-        return self.raridade
+        return self.__raridade
 
     @raridade.setter
     def raridade(self, raridade):
