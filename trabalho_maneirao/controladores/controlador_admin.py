@@ -80,13 +80,6 @@ class ControleTreinador:
             self.__tela_treinador.mostra_mensagem("ATENCAO: Esse treinador não existe")
 
 
-
-
-    # def valida_treinador(self,nome,idpokedex):
-    #     for treinador in self.__treinadores:
-    #         if treinador.nome==nome and treinador.idpokedex==int(idpokedex):
-    #             return treinador
-
     def valida_treinador(self,nome,idpokedex):
         for treinador in self.__treinadores:
             if treinador.nome==nome and treinador.idpokedex==int(idpokedex):

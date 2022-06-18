@@ -9,6 +9,7 @@ class ControleItem:
         self.__tela_item = TelaItem()
         self.__controlador_sistema = controlador_sistema
 
+
     @property
     def itens(self):
         return self.__itens
@@ -40,7 +41,6 @@ class ControleItem:
 
     def alterar_item(self):
         self.lista_itens()
-
         nome = self.__tela_item.seleciona_item()
         item = self.pega_item_por_nome(nome)
 
@@ -64,8 +64,13 @@ class ControleItem:
         else:
             self.__tela_item.mostra_mensagem("ITEM NÃO CADASTRADO")
 
+
+    def retornar(self):
+        self.__controlador_sistema.abre_tela()
+
+
     def abre_tela(self):
-        lista_opcoes = {1: self.adicionar_item, 2: self.alterar_item, 3: self.excluir_item, 4: self.lista_itens}
+        lista_opcoes = {1: self.adicionar_item, 2: self.alterar_item, 3: self.excluir_item, 4: self.lista_itens, 5:self.retornar}
         continua = True
         while continua:
             opcao_escolhida = lista_opcoes[self.__tela_item.tela_opcoes()]

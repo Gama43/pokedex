@@ -6,8 +6,9 @@ class TelaItem:
         print('2- Alterar item já cadastrado')
         print('3- Remover item')
         print('4- Mostrar itens existentes no mundo')
+        print('5- Retornar')
 
-        opcao = int(input('Sua opção: '))
+        opcao = self.opcao()
         return opcao
 
     def dados_item(self):
@@ -41,7 +42,7 @@ class TelaItem:
                 self.menu()
                 continue
             else:
-                if 0 <= opcao <= 4:
+                if 0 <= opcao <= 5:
                     return opcao
                 else:
                     print('Digite um valor válido')
@@ -52,6 +53,7 @@ class TelaItem:
         print('2- Alterar item já cadastrado')
         print('3- Remover item')
         print('4- Mostrar itens existentes no mundo')
+        print('5- Retornar')
 
     def nome(self):
         while True:
