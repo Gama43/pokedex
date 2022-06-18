@@ -31,7 +31,7 @@ class Pokemon:
 
     @level.setter
     def level(self, level):
-        self.__treinador = level
+        self.__level= level
 
     @property
     def ataques(self):
