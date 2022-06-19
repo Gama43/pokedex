@@ -36,8 +36,11 @@ class ControleItem:
             print('ERRO!')
 
     def lista_itens(self):
+        n_itens = 1
         for item in self.__itens:
             self.__tela_item.mostra_item({"nome": item.nome, "quantidade": item.quantidade, "raridade": item.raridade})
+            print(f"Opção: {n_itens} \n")
+            n_itens += 1
 
     def alterar_item(self):
         self.lista_itens()
@@ -70,7 +73,7 @@ class ControleItem:
 
 
     def abre_tela(self):
-        lista_opcoes = {1: self.adicionar_item, 2: self.alterar_item, 3: self.excluir_item, 4: self.lista_itens, 5:self.retornar}
+        lista_opcoes = {1: self.adicionar_item, 2: self.alterar_item, 3: self.excluir_item, 4: self.lista_itens, 0:self.retornar}
         continua = True
         while continua:
             opcao_escolhida = lista_opcoes[self.__tela_item.tela_opcoes()]
