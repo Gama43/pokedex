@@ -70,7 +70,7 @@ class TelaItem:
 
     def raridade(self):
         while True:
-            raridade = int(input('Raridade: '))
-            if raridade is not int and raridade is not None:
+            raridade = str(input('Raridade: '))
+            if raridade.isnumeric() and raridade is not None:
                 break
-        return raridade
+        return int(raridade)
