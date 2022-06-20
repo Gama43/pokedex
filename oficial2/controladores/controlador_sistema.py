@@ -1,10 +1,10 @@
-from versao_final.view.tela_sistema import TelaSistema
-from versao_final.view.tela_login import TelaLogin
-from versao_final.controladores.controlador_admin import ControleTreinador
-from versao_final.view.tela_admin import TelaAdmin
-from versao_final.view.tela_usuario import TelaUsuario
-from versao_final.controladores.controlador_pokemon import ControladorPokemon
-from versao_final.controladores.controlador_relatorios import ControladorRelatorios
+from oficial2.view.tela_sistema import TelaSistema
+from oficial2.view.tela_login import TelaLogin
+from oficial2.controladores.controlador_admin import ControleTreinador
+from oficial2.view.tela_admin import TelaAdmin
+from oficial2.view.tela_usuario import TelaUsuario
+from oficial2.controladores.controlador_pokemon import ControladorPokemon
+from oficial2.controladores.controlador_relatorios import ControladorRelatorios
 
 class ControladorSistema:
 
