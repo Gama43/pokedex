@@ -28,7 +28,7 @@ class TelaAdmin:
 
 
     def seleciona_treinador(self):
-        idpokedex = int(input("Idpokedex do treinador que deseja selecionar: "))
+        idpokedex = self.idpokedex()
         return idpokedex
 
     def mostra_mensagem(self, mensagem):
