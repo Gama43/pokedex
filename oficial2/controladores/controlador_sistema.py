@@ -1,10 +1,10 @@
-from oficial2.view.tela_sistema import TelaSistema
-from oficial2.view.tela_login import TelaLogin
-from oficial2.controladores.controlador_admin import ControleTreinador
-from oficial2.view.tela_admin import TelaAdmin
-from oficial2.view.tela_usuario import TelaUsuario
-from oficial2.controladores.controlador_pokemon import ControladorPokemon
-from oficial2.controladores.controlador_relatorios import ControladorRelatorios
+from versao_final.view.tela_sistema import TelaSistema
+from versao_final.view.tela_login import TelaLogin
+from versao_final.controladores.controlador_admin import ControleTreinador
+from versao_final.view.tela_admin import TelaAdmin
+from versao_final.view.tela_usuario import TelaUsuario
+from versao_final.controladores.controlador_pokemon import ControladorPokemon
+from versao_final.controladores.controlador_relatorios import ControladorRelatorios
 
 class ControladorSistema:
 
@@ -34,6 +34,10 @@ class ControladorSistema:
         situacao = False
         while situacao == False:
             dados_login = self.__tela_Login.tela_login()
+            if dados_login["usuario"]=="sair":
+                if dados_login["idpokedex"]=="123":
+                    self.__tela_admin.mostra_mensagem('Programa encerrado com sucesso')
+                    exit(0)
             if dados_login["usuario"]=="admin":
                 if dados_login["idpokedex"]=="admin":
                     self.__controlador_admin.abre_tela()
@@ -41,7 +45,7 @@ class ControladorSistema:
             else:
                 self.__usuario_logado=self.__controlador_admin.valida_treinador(dados_login["usuario"],dados_login["idpokedex"])
                 if not self.__usuario_logado:
-                    print('Dados incorretos')
+                    self.__tela_admin.mostra_mensagem('Dados incorretos')
                 else:
                     situacao = True
                     lista_opcoes = {1: self.gerenciar_pokemons, 2: self.relatorios,0:self.retornar}
