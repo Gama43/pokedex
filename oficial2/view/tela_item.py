@@ -63,10 +63,10 @@ class TelaItem:
 
     def quantidade(self):
         while True:
-            quantidade = int(input('Quantidade: '))
-            if quantidade is not int and quantidade is not None:
+            quantidade = str(input('Quantidade: '))
+            if quantidade.isnumeric() and quantidade is not None:
                 break
-        return quantidade
+        return int(quantidade)
 
     def raridade(self):
         while True:
