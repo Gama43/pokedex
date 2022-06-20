@@ -4,7 +4,11 @@ class TelaLogin:
         print('-------TELA DE LOGIN-------')
         usuario=self.usuario()
         idpokedex=self.idpokedex()
+        #print('Para sair:'
+              #'Usuario=sair
+              #'Idpokedex=123')
         return {"usuario": usuario, "idpokedex":idpokedex}
+
 
     def usuario(self):
         while True:
