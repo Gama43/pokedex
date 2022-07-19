@@ -67,6 +67,10 @@ class TelaItem:
         for dado in dados_itens:
             string_total = string_total + 'Nome: ' + str(dado['nome']) + '\n'
             string_total = string_total + 'Idpokedex: ' + str(dado['idpokedex']) + '\n'
+   
+    def mostra_mensagem(self, msg):
+        sg.popup("", msg)
+        
 
         sg.Popup('---------LISTA ITENS---------', string_total)
 
