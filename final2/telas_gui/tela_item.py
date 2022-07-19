@@ -1,4 +1,4 @@
-import PySimpleGui as sg
+import PySimpleGUI as sg
 
 class TelaItem:
     def __init__(self):
@@ -30,7 +30,7 @@ class TelaItem:
             [sg.Radio('Alterar Item', 'opcao', key='Alterar', font=35)],
             [sg.Radio('Excluir Item', 'opcao', key='Remover', font=35)],
             [sg.Radio('Mostrar itens existentes no mundo', 'opcao', key='Listar', font=35)],
-            [sg.Buttton('Continuar', key='opcao', font=35), sg.Cancel('Cancelar', font=35)]
+            [sg.Button('Continuar', key='opcao', font=35), sg.Cancel('Cancelar', font=35)]
         ]
         self.janela = sg.Window('Tela Item').Layout(layout)
 
@@ -46,7 +46,7 @@ class TelaItem:
             [sg.Text('Dados do Novo Item')],
             [sg.Text('Nome do Item: ', size=12), sg.Input(size=20, key='nome')],
             [sg.Text('Quantidade: ', size=12), sg.Input(size=20, key='quantidade')],
-            [sg.Text('Raridade: ', size=12), sg.Slider(range=(1, 5), oriention='h', size=(5,20), default_value=1, key="raridade")],
+            [sg.Text('Raridade: ', size=12), sg.Slider(range=(1, 5), orientation='h', size=(5,20), default_value=1, key="raridade")],
             [sg.Button('Continuar', key='continuar'), sg.Button('Voltar', key='voltar')]
         ]
 
@@ -62,7 +62,7 @@ class TelaItem:
         else:
             return None
 
-    def mostrar_item(self):
+    def mostrar_item(self,dados_itens):
         string_total = ""
         for dado in dados_itens:
             string_total = string_total + 'Nome: ' + str(dado['nome']) + '\n'

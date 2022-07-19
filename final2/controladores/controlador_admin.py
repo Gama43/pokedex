@@ -3,6 +3,8 @@ from final2.entidade.treinador import Treinador
 from final2.view.tela_pokemon import TelaPokemon
 from final2.controladores.controlador_item import ControleItem
 from final2.telas_gui.tela_admin import TelaAdmin
+from final2.telas_gui.tela_pokemon import TelaPokemon
+
 
 class ControleTreinador:
 
@@ -43,7 +45,7 @@ class ControleTreinador:
                 treinador=Treinador(nome,idpokedex)
                 self.__treinadores.append(treinador)
             else:
-                self.__tela_pokemon.mostra_mensagem('ERRO!')
+                self.__tela_admin.mostra_mensagem('ERRO! Esse idpokedex ja foi cadastrado.')
         else:
             self.__tela_treinador.mostra_mensagem('Por favor, deixa de ser burro')
 
@@ -59,6 +61,8 @@ class ControleTreinador:
 
     def alterar_treinador(self):
         idpokedex = self.__tela_treinador.id_treinador()
+        if idpokedex=='voltar':
+            self.abre_tela()
         treinador = self.pega_treinador_por_idpokedex(idpokedex)
 
         if (treinador is not None):
@@ -72,6 +76,8 @@ class ControleTreinador:
     def excluir_treinador(self):
         if len(self.__treinadores)>0:
             idpokedex = self.__tela_treinador.id_treinador()
+            if idpokedex == 'voltar':
+                self.abre_tela()
             treiandor= self.pega_treinador_por_idpokedex(idpokedex)
             if (treiandor is not None):
                 self.__treinadores.remove(treiandor)
@@ -88,28 +94,31 @@ class ControleTreinador:
 
     def ver_todos_pokemons(self):
         sit=True
+        lista=[]
         for treinador in self.__treinadores:
             for pokemon in treinador.lista_pokemons:
-                self.__tela_admin.mostra_mensagem("-"*40)
-                self.__tela_admin.mostra_mensagem(f'Treinador: {treinador.nome}: {pokemon.nome} ,nível {pokemon.level}')
+                lista.append({"nome": treinador.nome,'pokemon':pokemon.nome ,"level": pokemon.level})
                 sit = False
-        if sit == True:
+        if sit==False:
+            self.__tela_treinador.todos_pokemons(lista)
+        if sit:
             self.__tela_admin.mostra_mensagem('Não foram registrados capturas de pokemon no sistema')
 
     def ver_pokemon_por_nome(self):
-        nome=self.__tela_pokemon.nome()
+        nome=self.__tela_pokemon.nome_pokemon()
         sit=False
+        lista=[]
         for treinador in self.__treinadores:
             for pokemon in treinador.lista_pokemons:
                 if pokemon.nome==nome:
                     sit=True
-                    self.__tela_pokemon.mostra_mensagem("-" * 30)
-                    texto=(f'Treinador: {treinador.nome}:{pokemon.nome} ,nível {pokemon.level}')
-                    self.__tela_pokemon.mostra_mensagem(texto)
+                    lista.append({"nome": treinador.nome,'pokemon':pokemon.nome ,"level": pokemon.level})
                     break
+        if sit:
+            self.__tela_treinador.pokemon_por_nome(lista)
         if sit==False:
             texto='Não foram registrados capturas desse pokemon'
-            self.__tela_pokemon.mostra_mensagem(texto)
+            self.__tela_admin.mostra_mensagem(texto)
 
 
     def gerenciar_itens(self):
@@ -122,7 +131,7 @@ class ControleTreinador:
 
     def abre_tela(self):
         lista_opcoes = {1: self.adicionar_treinador, 3: self.alterar_treinador, 2: self.excluir_treinador, 4: self.lista_treinadores,
-                         0: self.retornar,5: self.ver_todos_pokemons,6:self.ver_pokemon_por_nome,7:self.gerenciar_itens}
+                         0: self.retornar,5: self.ver_todos_pokemons,7:self.ver_pokemon_por_nome,6:self.gerenciar_itens}
         continua = True
         while continua:
             opcao_escolhida = lista_opcoes[self.__tela_admin.tela_opcoes()]

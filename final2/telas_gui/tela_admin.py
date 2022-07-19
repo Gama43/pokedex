@@ -85,6 +85,24 @@ class TelaAdmin:
 
         sg.Popup('---------LISTA TREINADORES---------',string_total)
 
+    def todos_pokemons(self,dados):
+        string_total=""
+        for dado in dados:
+            string_total = string_total + 'Treinador: ' + str(dado['nome'])+'\n'
+            string_total = string_total + 'Pokemon: ' + str(dado['pokemon']) + '\n'
+            string_total = string_total + 'Level: ' + str(dado['level']) + '\n'
+
+        sg.Popup('---------Todos pokemons cadastrados---------',string_total)
+
+    def pokemon_por_nome(self,dados):
+        string_total=""
+        for dado in dados:
+            string_total = string_total + 'Treinador: ' + str(dado['nome'])+'\n'
+            string_total = string_total + 'Pokemon: ' + str(dado['pokemon']) + '\n'
+            string_total = string_total + 'Level: ' + str(dado['level']) + '\n'
+
+        sg.Popup('---------Capturas desse pokemon---------',string_total)
+
 
 
     def id_treinador(self):
@@ -97,6 +115,9 @@ class TelaAdmin:
         self.janela = sg.Window('Tela idpokedex').Layout(layout)
 
         evento, valores = self.abrir()
+        if evento=='voltar':
+            self.fechar()
+            return 'voltar'
         idpokedex = valores['idpokedex']
         self.fechar()
         return idpokedex

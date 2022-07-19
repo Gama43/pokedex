@@ -1,5 +1,6 @@
 from final2.view.tela_item import TelaItem
 from final2.entidade.item import Item
+from final2.telas_gui.tela_item import TelaItem
 
 
 class ControleItem:
@@ -39,7 +40,7 @@ class ControleItem:
         n_itens = 1
         for item in self.__itens:
             print(f"Opção: {n_itens} \n")
-            self.__tela_item.mostra_item({"nome": item.nome, "quantidade": item.quantidade, "raridade": item.raridade})
+            self.__tela_item.mostra_item([{"nome": item.nome, "quantidade": item.quantidade, "raridade": item.raridade}])
 
             n_itens += 1
 
