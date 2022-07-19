@@ -26,10 +26,10 @@ class TelaItem:
     def menu(self):
         layout = [
             [sg.Text('Selecione sua opção', font = 50)],
-            [sg.Radio('Adicionar Item', key='Adicionar', font=35)],
-            [sg.Radio('Alterar Item', key='Alterar', font=35)],
-            [sg.Radio('Excluir Item', key='Remover', font=35)],
-            [sg.Radio('Mostrar itens existentes no mundo', key='Listar', font=35)],
+            [sg.Radio('Adicionar Item', 'opcao', key='Adicionar', font=35)],
+            [sg.Radio('Alterar Item', 'opcao', key='Alterar', font=35)],
+            [sg.Radio('Excluir Item', 'opcao', key='Remover', font=35)],
+            [sg.Radio('Mostrar itens existentes no mundo', 'opcao', key='Listar', font=35)],
             [sg.Buttton('Continuar', key='opcao', font=35), sg.Cancel('Cancelar', font=35)]
         ]
         self.janela = sg.Window('Tela Item').Layout(layout)
@@ -67,10 +67,6 @@ class TelaItem:
         for dado in dados_itens:
             string_total = string_total + 'Nome: ' + str(dado['nome']) + '\n'
             string_total = string_total + 'Idpokedex: ' + str(dado['idpokedex']) + '\n'
-   
-    def mostra_mensagem(self, msg):
-        sg.popup("", msg)
-        
 
         sg.Popup('---------LISTA ITENS---------', string_total)
 
@@ -87,3 +83,6 @@ class TelaItem:
         nome = valores['nome']
         self.fechar()
         return nome
+
+    def mostra_mensagem(self, msg):
+        sg.popup("", msg)
