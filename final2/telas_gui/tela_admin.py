@@ -124,3 +124,5 @@ class TelaAdmin:
 
     def mostra_mensagem(self, msg):
         sg.popup("", msg)
+
+

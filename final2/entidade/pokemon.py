@@ -2,18 +2,13 @@
 
 class Pokemon:
 
-    def __init__(self,nome, tipo, level, nomeataque1,valorataque1,nomeataque2,valorataque2, defesa, regiao):
+    def __init__(self,nome, tipo, level, ataques, defesa, regiao):
         self.__nome = nome
         self.__tipo = tipo
         self.__level = level
-        self.__nomeataque1 = nomeataque1
-        self.__valorataque1=valorataque1
-        self.__nomeataque2 = nomeataque2
-        self.__valorataque2=valorataque2
-
+        self.__ataques = ataques
         self.__defesa = defesa
         self.__regiao = regiao
-
 
     @property
     def nome(self):
@@ -56,26 +51,8 @@ class Pokemon:
         self.__regiao = regiao
 
     @property
-    def nomeataque1(self):
-        return self.__nomeataque1
+    def ataques(self):
+        return self.__ataques
 
-    @nomeataque1.setter
-    def nomeataque1(self, nomeataque1):
-        self.__nomeataque1 = nomeataque1
 
-    @property
-    def nomeataque2(self):
-        return self.__nomeataque2
-
-    @nomeataque2.setter
-    def nomeataque2(self, nomeataque2):
-        self.__nomeataque2 = nomeataque2
-
-    @property
-    def valorataque2(self):
-        return self.__valorataque2
-
-    @valorataque2.setter
-    def valorataque2(self, valorataque2):
-        self.__valorataque2 = valorataque2
 

@@ -1,6 +1,5 @@
-from final2.view.tela_admin import TelaAdmin
+
 from final2.entidade.treinador import Treinador
-from final2.view.tela_pokemon import TelaPokemon
 from final2.controladores.controlador_item import ControleItem
 from final2.telas_gui.tela_admin import TelaAdmin
 from final2.telas_gui.tela_pokemon import TelaPokemon
@@ -55,9 +54,11 @@ class ControleTreinador:
         for treinador in self.__treinadores:
             dados_treinadores.append({"nome": treinador.nome, "idpokedex": treinador.idpokedex})
             sit = False
-        self.__tela_treinador.mostra_treinador(dados_treinadores)
+
         if sit:
             self.__tela_pokemon.mostra_mensagem('Não foram registrados treinadores no sistema')
+        else:
+            self.__tela_treinador.mostra_treinador(dados_treinadores)
 
     def alterar_treinador(self):
         idpokedex = self.__tela_treinador.id_treinador()

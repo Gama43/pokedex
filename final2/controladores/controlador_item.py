@@ -1,4 +1,4 @@
-from final2.view.tela_item import TelaItem
+
 from final2.entidade.item import Item
 from final2.telas_gui.tela_item import TelaItem
 

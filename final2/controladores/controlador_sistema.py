@@ -1,8 +1,6 @@
-from final2.view.tela_sistema import TelaSistema
+
 from final2.telas_gui.tela_login import TelaLogin
 from final2.controladores.controlador_admin import ControleTreinador
-from final2.view.tela_admin import TelaAdmin
-from final2.view.tela_usuario import TelaUsuario
 from final2.controladores.controlador_pokemon import ControladorPokemon
 from final2.controladores.controlador_relatorios import ControladorRelatorios
 from final2.telas_gui.tela_pokemon import TelaPokemon
@@ -12,9 +10,7 @@ class ControladorSistema:
 
 
     def __init__(self):
-        self.__tela_sistema=TelaSistema()
         self.__tela_Login=TelaLogin()
-        self.__tela_admin=TelaAdmin()
         self.__controlador_admin=ControleTreinador(self)
         self.__tela_usuario=TelaUsuario()
         self.__controlador_pokemon=ControladorPokemon(self)
@@ -60,9 +56,7 @@ class ControladorSistema:
 
 
 
-    def sair(self):
-        self.__tela_admin.mostra_mensagem('Programa encerrado com sucesso, volte sempre!')
-        exit(0)
+
 
     def retornar(self):
         self.entrar()

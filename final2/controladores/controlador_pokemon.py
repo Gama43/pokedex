@@ -1,8 +1,8 @@
 from final2.entidade.pokemon import Pokemon
 from final2.entidade.pokemon_evoluido import PokemonEvoluido
-from final2.view.tela_pokemon import TelaPokemon
 from final2.telas_gui.tela_pokemon import TelaPokemon
-
+from final2.valor_nulo_exception import ValorNuloException
+from final2.não_eh_string import NaoEhString
 class ControladorPokemon():
 
     def __init__(self,controlador_sistema):
@@ -13,33 +13,57 @@ class ControladorPokemon():
 
 
     def capturar_pokemon(self):
+        sit=True
         dados_pokemon = self.__tela_pokemon.dados_pokemon()
         if dados_pokemon=='cancelar':
             self.abre_tela()
         nome = dados_pokemon["nome"]
+        if len(nome)==0:
+            raise ValorNuloException
+        if nome.isalpha()==False:
+            raise NaoEhString
+
         tipo = dados_pokemon["tipo"]
         level = dados_pokemon["level"]
+
         nomeataque1 = dados_pokemon["nomeataque1"]
+        if len(nomeataque1)==0:
+            raise ValorNuloException
+        if nomeataque1.isalpha()==False:
+            raise NaoEhString
         valorataque1=dados_pokemon['valorataque1']
         nomeataque2=dados_pokemon['nomeataque2']
+        if len(nomeataque2)==0:
+            raise ValorNuloException
+        if nomeataque2.isalpha()==False:
+            raise NaoEhString
         valorataque2 = dados_pokemon['valorataque2']
+        ataques = [{nomeataque1: valorataque1},{nomeataque2:valorataque2}]
         defesa = dados_pokemon["defesa"]
         regiao = dados_pokemon["regiao"]
-        pokemon_pra_adicionar = Pokemon(nome, tipo, level, nomeataque1,valorataque1,nomeataque2,valorataque2, defesa, regiao)
+        pokemon_pra_adicionar = Pokemon(nome, tipo, level, ataques, defesa, regiao)
+
         cont=0
         for pokemon in self.__pokemons:
             if pokemon.nome==nome:
                 cont+=1
         if cont==0:
-            self.__controlador_sistema.usuario_logado.lista_pokemons.append(pokemon_pra_adicionar)
+            if sit is True:
+                self.__controlador_sistema.usuario_logado.lista_pokemons.append(pokemon_pra_adicionar)
         else:
             self.__tela_pokemon.mostra_mensagem('Erro! Esse treinador ja cadastrou esse pokemon!')
 
 
     def lista_pokemons(self):
+        sit=True
+        dados_pokemon=[]
         for pokemon in self.__controlador_sistema.usuario_logado.lista_pokemons:
-            self.__tela_pokemon.mostra_pokemon([{"nome": pokemon.nome, "tipo": pokemon.tipo,"level": pokemon.level, "ataques": pokemon.ataques, "defesa": pokemon.defesa, "regiao": pokemon.regiao}])
-
+            dados_pokemon.append({"nome": pokemon.nome, "tipo": pokemon.tipo,"level": pokemon.level, "ataques": pokemon.ataques, "defesa": pokemon.defesa, "regiao": pokemon.regiao})
+            sit=False
+        if sit:
+            self.__tela_pokemon.mostra_mensagem('Esse treinador ainda não capturou pokemons')
+        else:
+            self.__tela_pokemon.mostra_pokemon(dados_pokemon)
 
     def seleciona_pokemon_por_nome(self,nome):
         for pokemon in self.__controlador_sistema.usuario_logado.lista_pokemons:
@@ -49,9 +73,8 @@ class ControladorPokemon():
 
 
     def alterar_pokemon(self):
-        self.lista_pokemons()
         sit=False
-        nome_pokemon = self.__tela_pokemon.seleciona_pokemon()
+        nome_pokemon = self.__tela_pokemon.nome_pokemon()
         pokemon=self.seleciona_pokemon_por_nome(nome_pokemon)
         if (pokemon is not None):
             for pokemon in self.__controlador_sistema.usuario_logado.lista_pokemons:
@@ -69,8 +92,8 @@ class ControladorPokemon():
             self.__tela_pokemon.mostra_mensagem('Esse pokemon não foi capturado')
 
     def excluir_pokemon(self):
-        self.lista_pokemons()
-        nome_pokemon = self.__tela_pokemon.seleciona_pokemon()
+
+        nome_pokemon = self.__tela_pokemon.nome_pokemon()
         pokemon=self.seleciona_pokemon_por_nome(nome_pokemon)
         if pokemon in self.__controlador_sistema.usuario_logado.lista_pokemons:
             self.__controlador_sistema.usuario_logado.lista_pokemons.remove(pokemon)
@@ -80,7 +103,7 @@ class ControladorPokemon():
 
 
     def evoluir_pokemon(self):
-        nome=self.__tela_pokemon.seleciona_pokemon()
+        nome=self.__tela_pokemon.nome_pokemon()
         sit=False
         for pokemon in self.__controlador_sistema.usuario_logado.lista_pokemons:
 
@@ -89,6 +112,8 @@ class ControladorPokemon():
                 if pokemon.level>=18:
                     novo_pokemon=PokemonEvoluido(pokemon.nome,pokemon.tipo,pokemon.level,pokemon.ataques,
                                             pokemon.defesa,pokemon.regiao)
+                    novo_ataque=self.__tela_pokemon.ataque_pokemon_evoluido()
+                    novo_pokemon.ataques.append(novo_ataque)
                     self.__controlador_sistema.usuario_logado.lista_pokemons.append(novo_pokemon)
                     self.__controlador_sistema.usuario_logado.lista_pokemons.remove(pokemon)
                 else:
@@ -100,7 +125,7 @@ class ControladorPokemon():
         self.__controlador_sistema.tela()
 
     def abre_tela(self):
-        lista_opcoes = {1: self.capturar_pokemon, 2:self.alterar_pokemon,3:self.lista_pokemons,4:self.excluir_pokemon,5:self.evoluir_pokemon, 0:self.retornar}
+        lista_opcoes = {1: self.capturar_pokemon, 3:self.alterar_pokemon,4:self.lista_pokemons,2:self.excluir_pokemon,5:self.evoluir_pokemon, 0:self.retornar}
         while True:
             opcao_escolhida = self.__tela_pokemon.tela_opcoes()
             funcao_escolhida = lista_opcoes[opcao_escolhida]
