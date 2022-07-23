@@ -3,6 +3,7 @@ from final2.entidade.treinador import Treinador
 from final2.controladores.controlador_item import ControleItem
 from final2.telas_gui.tela_admin import TelaAdmin
 from final2.telas_gui.tela_pokemon import TelaPokemon
+from final2.dao.dao_admin import AdminDAO
 
 
 class ControleTreinador:
@@ -14,15 +15,16 @@ class ControleTreinador:
         self.__controlador_sistema = controlador_sistema
         self.__controlador_item=ControleItem(self)
         self.__tela_admin=TelaAdmin()
+        self.__admin_dao=AdminDAO()
 
 
     @property
     def treinadores(self):
-        return self.__treinadores
+        return self.__admin_dao.get_all()
 
 
     def pega_treinador_por_idpokedex(self, idpokedex: int):
-        for treinador in self.__treinadores:
+        for treinador in self.__admin_dao.get_all():
             if (treinador.idpokedex == idpokedex):
                 return treinador
         return None
@@ -42,7 +44,7 @@ class ControleTreinador:
                     cont+=1
             if cont==0:
                 treinador=Treinador(nome,idpokedex)
-                self.__treinadores.append(treinador)
+                self.__admin_dao.add(treinador)
             else:
                 self.__tela_admin.mostra_mensagem('ERRO! Esse idpokedex ja foi cadastrado.')
         else:
@@ -51,7 +53,7 @@ class ControleTreinador:
     def lista_treinadores(self):
         sit = True
         dados_treinadores = []
-        for treinador in self.__treinadores:
+        for treinador in self.__admin_dao.get_all():
             dados_treinadores.append({"nome": treinador.nome, "idpokedex": treinador.idpokedex})
             sit = False
 
@@ -81,7 +83,7 @@ class ControleTreinador:
                 self.abre_tela()
             treiandor= self.pega_treinador_por_idpokedex(idpokedex)
             if (treiandor is not None):
-                self.__treinadores.remove(treiandor)
+                self.__admin_dao.remove(treiandor)
             else:
                 self.__tela_treinador.mostra_mensagem("ATENCAO! Esse treinador não existe")
         else:
