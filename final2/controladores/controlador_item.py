@@ -1,22 +1,23 @@
 
 from final2.entidade.item import Item
 from final2.telas_gui.tela_item import TelaItem
+from final2.dao.dao_item import ItemDAO
 
 
 class ControleItem:
 
     def __init__(self, controlador_sistema):
-        self.__itens = []
+        self.__item_dao = ItemDAO()
         self.__tela_item = TelaItem()
         self.__controlador_sistema = controlador_sistema
 
 
     @property
     def itens(self):
-        return self.__itens
+        return self.__item_dao.get_all()
 
     def pega_item_por_nome(self, nome: str):
-        for item in self.__itens:
+        for item in self.__item_dao.get_all():
             if item.nome == nome:
                 return item
         return None
@@ -32,13 +33,13 @@ class ControleItem:
                 cont += 1
         if cont == 0:
             item = Item(nome, quantidade,raridade)
-            self.__itens.append(item)
+            self.__item_dao.add(item)
         else:
             print('ERRO!')
 
     def lista_itens(self):
         n_itens = 1
-        for item in self.__itens:
+        for item in self.__item_dao.get_all():
             print(f"Opção: {n_itens} \n")
             self.__tela_item.mostra_item([{"nome": item.nome, "quantidade": item.quantidade, "raridade": item.raridade}])
 
@@ -64,7 +65,7 @@ class ControleItem:
         item = self.pega_item_por_nome(nome)
 
         if item is not None:
-            self.__itens.remove(item)
+            self.__item_dao.remove(item)
             self.lista_itens()
         else:
             self.__tela_item.mostra_mensagem("ITEM NÃO CADASTRADO")

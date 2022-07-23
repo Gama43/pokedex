@@ -66,7 +66,8 @@ class TelaItem:
         string_total = ""
         for dado in dados_itens:
             string_total = string_total + 'Nome: ' + str(dado['nome']) + '\n'
-            string_total = string_total + 'Idpokedex: ' + str(dado['idpokedex']) + '\n'
+            string_total = string_total + 'Quantidade: ' + str(dado['quantidade']) + '\n'
+            string_total = string_total + 'Raridade: ' + str(dado['raridade']) + '\n'
 
         sg.Popup('---------LISTA ITENS---------', string_total)
 
