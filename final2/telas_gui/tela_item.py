@@ -62,7 +62,7 @@ class TelaItem:
         else:
             return None
 
-    def mostrar_item(self,dados_itens):
+    def mostra_item(self,dados_itens):
         string_total = ""
         for dado in dados_itens:
             string_total = string_total + 'Nome: ' + str(dado['nome']) + '\n'
