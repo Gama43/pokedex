@@ -1,7 +1,6 @@
-
-from final2.entidade.item import Item
-from final2.telas_gui.tela_item import TelaItem
-from final2.dao.dao_item import ItemDAO
+from entidade.item import Item
+from telas_gui.tela_item import TelaItem
+from dao.dao_item import ItemDAO
 
 
 class ControleItem:
@@ -10,7 +9,6 @@ class ControleItem:
         self.__item_dao = ItemDAO()
         self.__tela_item = TelaItem()
         self.__controlador_sistema = controlador_sistema
-
 
     @property
     def itens(self):
@@ -24,6 +22,8 @@ class ControleItem:
 
     def adicionar_item(self):
         dados_item = self.__tela_item.dados_item()
+        if dados_item == 'voltar':
+            self.abre_tela()
         nome = dados_item["nome"]
         quantidade = dados_item["quantidade"]
         raridade = dados_item["raridade"]
@@ -32,22 +32,27 @@ class ControleItem:
             if item.nome == nome:
                 cont += 1
         if cont == 0:
-            item = Item(nome, quantidade,raridade)
+            item = Item(nome, quantidade, raridade)
             self.__item_dao.add(item)
         else:
-            print('ERRO!')
+            self.__tela_item.mostra_mensagem('Item já existe')
 
     def lista_itens(self):
-        n_itens = 1
+        sit = True
+        dados_item = []
         for item in self.__item_dao.get_all():
-            print(f"Opção: {n_itens} \n")
-            self.__tela_item.mostra_item([{"nome": item.nome, "quantidade": item.quantidade, "raridade": item.raridade}])
+            dados_item.append({"nome": item.nome, "quantidade": item.quantidade, "raridade": item.raridade})
+            sit = False
 
-            n_itens += 1
+        if sit:
+            self.__tela_item.mostra_mensagem('Não foram registrados itens no sistema')
+        else:
+            self.__tela_item.mostra_item(dados_item)
 
     def alterar_item(self):
-        self.lista_itens()
-        nome = self.__tela_item.seleciona_item()
+        nome = self.__tela_item.nome_item()
+        if nome == 'voltar':
+            self.abre_tela()
         item = self.pega_item_por_nome(nome)
 
         if item is not None:
@@ -60,23 +65,21 @@ class ControleItem:
             self.__tela_item.mostra_mensagem("ITEM NÃO CADASTRADO")
 
     def excluir_item(self):
-        self.lista_itens()
-        nome = self.__tela_item.seleciona_item()
+        nome = self.__tela_item.nome_item()
+        if nome == 'voltar':
+            self.abre_tela()
         item = self.pega_item_por_nome(nome)
-
         if item is not None:
             self.__item_dao.remove(item)
-            self.lista_itens()
         else:
-            self.__tela_item.mostra_mensagem("ITEM NÃO CADASTRADO")
-
+            self.__tela_item.mostra_mensagem("ATENCAO! Esse Item não existe")
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()
 
-
     def abre_tela(self):
-        lista_opcoes = {1: self.adicionar_item, 2: self.alterar_item, 3: self.excluir_item, 4: self.lista_itens, 0:self.retornar}
+        lista_opcoes = {1: self.adicionar_item, 2: self.alterar_item, 3: self.excluir_item, 4: self.lista_itens,
+                        0: self.retornar}
         continua = True
         while continua:
             opcao_escolhida = lista_opcoes[self.__tela_item.tela_opcoes()]

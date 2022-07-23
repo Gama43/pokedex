@@ -1,8 +1,10 @@
-from final2.entidade.pokemon import Pokemon
-from final2.entidade.pokemon_evoluido import PokemonEvoluido
-from final2.telas_gui.tela_pokemon import TelaPokemon
-from final2.valor_nulo_exception import ValorNuloException
-from final2.não_eh_string import NaoEhString
+from entidade.pokemon import Pokemon
+from entidade.pokemon_evoluido import PokemonEvoluido
+from telas_gui.tela_pokemon import TelaPokemon
+from valor_nulo_exception import ValorNuloException
+from não_eh_string import NaoEhString
+
+
 class ControladorPokemon():
 
     def __init__(self,controlador_sistema):
