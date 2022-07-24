@@ -46,7 +46,7 @@ class TelaItem:
             [sg.Text('Dados do Novo Item')],
             [sg.Text('Nome do Item: ', size=12), sg.Input(size=20, key='nome')],
             [sg.Text('Quantidade: ', size=12), sg.Input(size=20, key='quantidade')],
-            [sg.Text('Raridade: ', size=12), sg.Slider(range=(1, 5), orientation='h', size=(5,20), default_value=1, key="raridade")],
+            [sg.Text('Raridade: ', size=12), sg.Slider(range=(1, 5), orientation='h', size=(25,20), default_value=1, key="raridade")],
             [sg.Button('Continuar', key='continuar'), sg.Button('Voltar', key='voltar')]
         ]
 

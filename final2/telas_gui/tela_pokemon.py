@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-from final2.valor_invalido_exception import ValorInvalidoException
+from valor_invalido_exception import ValorInvalidoException
 
 class TelaPokemon:
     def __init__(self):
@@ -73,14 +73,7 @@ class TelaPokemon:
             return 'cancelar'
         while True:
             nome = valores['nome']
-            try:
-                if len(nome)==0 or nome.isalpha()==False:
-                    sit=False
-                    raise ValorInvalidoException
-            except ValorInvalidoException:
-                self.mostra_mensagem('Erro!')
-            else:
-                return nome
+
             break
 
         level=valores['level']
