@@ -1,7 +1,7 @@
 
-from controladores.controlador_admin import ControleTreinador
-from controladores.controlador_pokemon import ControladorPokemon
-from telas_gui.tela_relatorios import TelaRelatorios
+from final2.controladores.controlador_admin import ControleTreinador
+from final2.controladores.controlador_pokemon import ControladorPokemon
+from final2.telas_gui.tela_relatorios import TelaRelatorios
 
 class ControladorRelatorios():
 

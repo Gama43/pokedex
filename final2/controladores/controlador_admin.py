@@ -1,15 +1,14 @@
-
-from entidade.treinador import Treinador
-from controladores.controlador_item import ControleItem
-from telas_gui.tela_admin import TelaAdmin
-from telas_gui.tela_pokemon import TelaPokemon
-from dao.dao_admin import AdminDAO
+from final2.entidade.treinador import Treinador
+from final2.controladores.controlador_item import ControleItem
+from final2.telas_gui.tela_admin import TelaAdmin
+from final2.telas_gui.tela_pokemon import TelaPokemon
+from final2.dao.dao_admin import AdminDAO
 
 
 class ControleTreinador:
 
     def __init__(self, controlador_sistema):
-        self.__treinadores = []
+
         self.__tela_treinador = TelaAdmin()
         self.__tela_pokemon=TelaPokemon()
         self.__controlador_sistema = controlador_sistema
@@ -77,7 +76,7 @@ class ControleTreinador:
 
 
     def excluir_treinador(self):
-        if len(self.__treinadores)>0:
+        if len(self.__admin_dao.get_all())>0:
             idpokedex = self.__tela_treinador.id_treinador()
             if idpokedex == 'voltar':
                 self.abre_tela()
@@ -91,14 +90,14 @@ class ControleTreinador:
 
 
     def valida_treinador(self,nome,idpokedex):
-        for treinador in self.__treinadores:
+        for treinador in self.__admin_dao.get_all():
             if treinador.nome==nome and treinador.idpokedex==str(idpokedex):
                 return treinador
 
     def ver_todos_pokemons(self):
         sit=True
         lista=[]
-        for treinador in self.__treinadores:
+        for treinador in self.__admin_dao.get_all():
             for pokemon in treinador.lista_pokemons:
                 lista.append({"nome": treinador.nome,'pokemon':pokemon.nome ,"level": pokemon.level})
                 sit = False
@@ -111,7 +110,7 @@ class ControleTreinador:
         nome=self.__tela_pokemon.nome_pokemon()
         sit=False
         lista=[]
-        for treinador in self.__treinadores:
+        for treinador in self.__admin_dao.get_all():
             for pokemon in treinador.lista_pokemons:
                 if pokemon.nome==nome:
                     sit=True

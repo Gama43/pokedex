@@ -1,5 +1,5 @@
-from dao.dao_abstract import DAO
-from entidade.item import Item
+from final2.dao.dao_abstract import DAO
+from final2.entidade.item import Item
 
 
 class ItemDAO(DAO):
@@ -17,5 +17,3 @@ class ItemDAO(DAO):
 
     def remove(self, chave: str):
         return super().remove(chave)
-
-

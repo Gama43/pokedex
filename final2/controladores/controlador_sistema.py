@@ -1,10 +1,10 @@
 
-from telas_gui.tela_login import TelaLogin
-from controladores.controlador_admin import ControleTreinador
-from controladores.controlador_pokemon import ControladorPokemon
-from controladores.controlador_relatorios import ControladorRelatorios
-from telas_gui.tela_pokemon import TelaPokemon
-from telas_gui.tela_usuario import TelaUsuario
+from final2.telas_gui.tela_login import TelaLogin
+from final2.controladores.controlador_admin import ControleTreinador
+from final2.controladores.controlador_pokemon import ControladorPokemon
+from final2.controladores.controlador_relatorios import ControladorRelatorios
+from final2.telas_gui.tela_pokemon import TelaPokemon
+from final2.telas_gui.tela_usuario import TelaUsuario
 
 class ControladorSistema:
 

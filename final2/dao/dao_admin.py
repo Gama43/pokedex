@@ -1,5 +1,5 @@
-from dao.dao_abstract import DAO
-from entidade.treinador import Treinador
+from final2.dao.dao_abstract import DAO
+from final2.entidade.treinador import Treinador
 
 
 class AdminDAO(DAO):

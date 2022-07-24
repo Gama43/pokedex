@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from final2.valor_invalido_exception import ValorInvalidoException
 
 class TelaPokemon:
     def __init__(self):
@@ -65,12 +66,23 @@ class TelaPokemon:
             [sg.Button('OK', key='continuar'), sg.Button('Cancelar', key='cancelar')]
         ]
         self.janela = sg.Window('Dados Pokemon').Layout(layout)
-
+        sit=True
         evento,valores=self.abrir()
         if evento=='cancelar':
             self.fechar()
             return 'cancelar'
-        nome=valores['nome']
+        while True:
+            nome = valores['nome']
+            try:
+                if len(nome)==0 or nome.isalpha()==False:
+                    sit=False
+                    raise ValorInvalidoException
+            except ValorInvalidoException:
+                self.mostra_mensagem('Erro!')
+            else:
+                return nome
+            break
+
         level=valores['level']
         nomeataque1=valores['nomeataque1']
         nomeataque2 = valores['nomeataque2']
@@ -115,7 +127,7 @@ class TelaPokemon:
 
 
         self.fechar()
-        if evento=='continuar':
+        if evento=='continuar' and sit:
             return {'nome':nome,'tipo': tipo,'level':level, 'nomeataque1':nomeataque1,'valorataque1':valorataque1,'nomeataque2':nomeataque2,'valorataque2':valorataque2,'defesa':defesa,'regiao':regiao}
         else:
             return None

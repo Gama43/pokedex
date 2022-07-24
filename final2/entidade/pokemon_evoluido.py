@@ -1,4 +1,4 @@
-from entidade.pokemon import Pokemon
+from final2.entidade.pokemon import Pokemon
 
 class PokemonEvoluido(Pokemon):
     def __init__(self,nome,tipo,level,ataques,defesa,regiao):
