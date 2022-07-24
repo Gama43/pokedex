@@ -1,8 +1,8 @@
-from final2.entidade.treinador import Treinador
-from final2.controladores.controlador_item import ControleItem
-from final2.telas_gui.tela_admin import TelaAdmin
-from final2.telas_gui.tela_pokemon import TelaPokemon
-from final2.dao.dao_admin import AdminDAO
+from entidade.treinador import Treinador
+from controladores.controlador_item import ControleItem
+from telas_gui.tela_admin import TelaAdmin
+from telas_gui.tela_pokemon import TelaPokemon
+from dao.dao_admin import AdminDAO
 
 
 class ControleTreinador:

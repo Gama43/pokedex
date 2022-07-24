@@ -1,6 +1,7 @@
-from final2.entidade.pokemon import Pokemon
-from final2.entidade.pokemon_evoluido import PokemonEvoluido
-from final2.telas_gui.tela_pokemon import TelaPokemon
+from entidade.pokemon import Pokemon
+from entidade.pokemon_evoluido import PokemonEvoluido
+from telas_gui.tela_pokemon import TelaPokemon
+from dao.dao_pokemon import PokemonDAO
 
 
 
@@ -9,9 +10,11 @@ class ControladorPokemon():
     def __init__(self,controlador_sistema):
         self.__controlador_sistema=controlador_sistema
         self.__tela_pokemon=TelaPokemon()
-        self.__pokemons=[]
+        self.__pokemon_dao = PokemonDAO()
 
-
+    @property
+    def pokemons(self):
+        return self.__pokemon_dao.get_all()
 
     def capturar_pokemon(self):
         sit=True
@@ -31,13 +34,12 @@ class ControladorPokemon():
         pokemon_pra_adicionar = Pokemon(nome, tipo, level, ataques, defesa, regiao)
 
         cont=0
-        for pokemon in self.__pokemons:
+        for pokemon in self.pokemons:
             if pokemon.nome==nome:
                 cont+=1
         if cont==0:
             if sit is True:
-
-                self.__controlador_sistema.usuario_logado.lista_pokemons.append(pokemon_pra_adicionar)
+                self.__pokemon_dao.add(pokemon_pra_adicionar)
 
         else:
             self.__tela_pokemon.mostra_mensagem('Erro! Esse treinador ja cadastrou esse pokemon!')
@@ -46,7 +48,7 @@ class ControladorPokemon():
     def lista_pokemons(self):
         sit=True
         dados_pokemon=[]
-        for pokemon in self.__controlador_sistema.usuario_logado.lista_pokemons:
+        for pokemon in self.__pokemon_dao.get_all():
             dados_pokemon.append({"nome": pokemon.nome, "tipo": pokemon.tipo,"level": pokemon.level, "ataques": pokemon.ataques, "defesa": pokemon.defesa, "regiao": pokemon.regiao})
             sit=False
         if sit:

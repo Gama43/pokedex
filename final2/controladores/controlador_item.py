@@ -1,6 +1,6 @@
-from final2.entidade.item import Item
-from final2.telas_gui.tela_item import TelaItem
-from final2.dao.dao_item import ItemDAO
+from entidade.item import Item
+from telas_gui.tela_item import TelaItem
+from dao.dao_item import ItemDAO
 
 
 class ControleItem:
