@@ -1,8 +1,7 @@
-from entidade.pokemon import Pokemon
-from entidade.pokemon_evoluido import PokemonEvoluido
-from telas_gui.tela_pokemon import TelaPokemon
-from valor_nulo_exception import ValorNuloException
-from não_eh_string import NaoEhString
+from final2.entidade.pokemon import Pokemon
+from final2.entidade.pokemon_evoluido import PokemonEvoluido
+from final2.telas_gui.tela_pokemon import TelaPokemon
+
 
 
 class ControladorPokemon():
@@ -20,25 +19,11 @@ class ControladorPokemon():
         if dados_pokemon=='cancelar':
             self.abre_tela()
         nome = dados_pokemon["nome"]
-        if len(nome)==0:
-            raise ValorNuloException
-        if nome.isalpha()==False:
-            raise NaoEhString
-
         tipo = dados_pokemon["tipo"]
         level = dados_pokemon["level"]
-
         nomeataque1 = dados_pokemon["nomeataque1"]
-        if len(nomeataque1)==0:
-            raise ValorNuloException
-        if nomeataque1.isalpha()==False:
-            raise NaoEhString
         valorataque1=dados_pokemon['valorataque1']
         nomeataque2=dados_pokemon['nomeataque2']
-        if len(nomeataque2)==0:
-            raise ValorNuloException
-        if nomeataque2.isalpha()==False:
-            raise NaoEhString
         valorataque2 = dados_pokemon['valorataque2']
         ataques = [{nomeataque1: valorataque1},{nomeataque2:valorataque2}]
         defesa = dados_pokemon["defesa"]
@@ -51,7 +36,9 @@ class ControladorPokemon():
                 cont+=1
         if cont==0:
             if sit is True:
+
                 self.__controlador_sistema.usuario_logado.lista_pokemons.append(pokemon_pra_adicionar)
+
         else:
             self.__tela_pokemon.mostra_mensagem('Erro! Esse treinador ja cadastrou esse pokemon!')
 
