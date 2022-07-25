@@ -66,11 +66,14 @@ class ControleTreinador:
         if idpokedex=='voltar':
             self.abre_tela()
         treinador = self.pega_treinador_por_idpokedex(idpokedex)
+        self.__admin_dao.remove(treinador.nome)
+
 
         if (treinador is not None):
             novos_dados_treinador = self.__tela_treinador.dados_treinador()
             treinador.nome = novos_dados_treinador["nome"]
             treinador.idpokedex = novos_dados_treinador["idpokedex"]
+            self.__admin_dao.add(treinador)
         else:
             self.__tela_treinador.mostra_mensagem("ATENCAO! Esse treinador não existe")
 
@@ -80,9 +83,9 @@ class ControleTreinador:
             idpokedex = self.__tela_treinador.id_treinador()
             if idpokedex == 'voltar':
                 self.abre_tela()
-            treiandor= self.pega_treinador_por_idpokedex(idpokedex)
-            if (treiandor is not None):
-                self.__admin_dao.remove(treiandor)
+            treinador= self.pega_treinador_por_idpokedex(idpokedex)
+            if (treinador is not None):
+                self.__admin_dao.remove(treinador.nome)
             else:
                 self.__tela_treinador.mostra_mensagem("ATENCAO! Esse treinador não existe")
         else:
