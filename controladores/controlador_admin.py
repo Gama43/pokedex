@@ -66,9 +66,10 @@ class ControleTreinador:
         if idpokedex == 'voltar':
             self.abre_tela()
         treinador = self.pega_treinador_por_idpokedex(idpokedex)
-        self.__admin_dao.remove(treinador.nome)
+        
 
         if (treinador is not None):
+            self.__admin_dao.remove(treinador.nome)
             novos_dados_treinador = self.__tela_treinador.dados_treinador()
             treinador.nome = novos_dados_treinador["nome"]
             treinador.idpokedex = novos_dados_treinador["idpokedex"]
