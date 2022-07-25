@@ -66,16 +66,13 @@ class TelaPokemon:
             [sg.Button('OK', key='continuar'), sg.Button('Cancelar', key='cancelar')]
         ]
         self.janela = sg.Window('Dados Pokemon').Layout(layout)
-        sit=True
+
         evento,valores=self.abrir()
         if evento=='cancelar':
             self.fechar()
             return 'cancelar'
-        while True:
-            nome = valores['nome']
 
-            break
-
+        nome=valores['nome']
         level=valores['level']
         nomeataque1=valores['nomeataque1']
         nomeataque2 = valores['nomeataque2']
@@ -120,7 +117,7 @@ class TelaPokemon:
 
 
         self.fechar()
-        if evento=='continuar' and sit:
+        if evento=='continuar' and nome:
             return {'nome':nome,'tipo': tipo,'level':level, 'nomeataque1':nomeataque1,'valorataque1':valorataque1,'nomeataque2':nomeataque2,'valorataque2':valorataque2,'defesa':defesa,'regiao':regiao}
         else:
             return None
@@ -172,3 +169,15 @@ class TelaPokemon:
         ataque={nomeataque:valorataque}
         self.fechar()
         return ataque
+
+    def verifica_vazio(self,valor):
+        while True:
+            string=valor
+            try:
+                if len(string)==0:
+                    raise ValorInvalidoException
+                return string
+            except ValorInvalidoException:
+                self.mostra_mensagem('erro')
+
+
