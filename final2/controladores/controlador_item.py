@@ -54,13 +54,14 @@ class ControleItem:
         if nome == 'voltar':
             self.abre_tela()
         item = self.pega_item_por_nome(nome)
+        self.__item_dao.remove(item.nome)
 
         if item is not None:
             novos_dados_item = self.__tela_item.dados_item()
             item.nome = novos_dados_item["nome"]
             item.quantidade = novos_dados_item["quantidade"]
             item.raridade = novos_dados_item["raridade"]
-            self.lista_itens()
+            self.__item_dao.add(item)
         else:
             self.__tela_item.mostra_mensagem("ITEM NÃO CADASTRADO")
 
@@ -70,7 +71,7 @@ class ControleItem:
             self.abre_tela()
         item = self.pega_item_por_nome(nome)
         if item is not None:
-            self.__item_dao.remove(item)
+            self.__item_dao.remove(item.nome)
         else:
             self.__tela_item.mostra_mensagem("ATENCAO! Esse Item não existe")
 
