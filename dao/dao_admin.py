@@ -4,7 +4,7 @@ from entidade.treinador import Treinador
 
 class AdminDAO(DAO):
     def __init__(self):
-        super().__init__('admin.pkl')
+        super().__init__('user.pkl')
 
     def add(self, treinador: Treinador):
         if (isinstance(treinador.nome, str) and (treinador is not None)) \
