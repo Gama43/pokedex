@@ -1,7 +1,7 @@
 from entidade.pokemon import Pokemon
 from entidade.pokemon_evoluido import PokemonEvoluido
 from telas_gui.tela_pokemon import TelaPokemon
-from dao.dao_pokemon import PokemonDAO
+
 
 
 
@@ -10,45 +10,50 @@ class ControladorPokemon():
     def __init__(self,controlador_sistema):
         self.__controlador_sistema=controlador_sistema
         self.__tela_pokemon=TelaPokemon()
-        self.__pokemon_dao = PokemonDAO()
+        self.__pokemons=[]
+
 
     @property
     def pokemons(self):
-        return self.__pokemon_dao.get_all()
+        return self.__pokemons
 
     def capturar_pokemon(self):
-        sit=True
-        dados_pokemon = self.__tela_pokemon.dados_pokemon()
-        if dados_pokemon=='cancelar':
-            self.abre_tela()
-        nome = dados_pokemon["nome"]
-        tipo = dados_pokemon["tipo"]
-        level = dados_pokemon["level"]
-        nomeataque1 = dados_pokemon["nomeataque1"]
-        valorataque1=dados_pokemon['valorataque1']
-        nomeataque2=dados_pokemon['nomeataque2']
-        valorataque2 = dados_pokemon['valorataque2']
-        ataques = [{nomeataque1: valorataque1},{nomeataque2:valorataque2}]
-        defesa = dados_pokemon["defesa"]
-        regiao = dados_pokemon["regiao"]
-        pokemon_pra_adicionar = Pokemon(nome, tipo, level, ataques, defesa, regiao)
+        while True:
+            sit=True
+            dados_pokemon = self.__tela_pokemon.dados_pokemon()
+            if dados_pokemon==None:
+                break
+            if dados_pokemon=='cancelar':
+                self.abre_tela()
+            nome = dados_pokemon["nome"]
+            tipo = dados_pokemon["tipo"]
+            level = dados_pokemon["level"]
+            nomeataque1 = dados_pokemon["nomeataque1"]
+            valorataque1=dados_pokemon['valorataque1']
+            nomeataque2=dados_pokemon['nomeataque2']
+            valorataque2 = dados_pokemon['valorataque2']
+            ataques = [{nomeataque1: valorataque1},{nomeataque2:valorataque2}]
+            defesa = dados_pokemon["defesa"]
+            regiao = dados_pokemon["regiao"]
+            pokemon_pra_adicionar = Pokemon(nome, tipo, level, ataques, defesa, regiao)
 
-        cont=0
-        for pokemon in self.pokemons:
-            if pokemon.nome==nome:
-                cont+=1
-        if cont==0:
-            if sit is True:
-                self.__pokemon_dao.add(pokemon_pra_adicionar)
+            cont=0
+            for pokemon in self.pokemons:
+                if pokemon.nome==nome:
+                    cont+=1
+            if cont==0:
+                if sit is True:
+                    self.__controlador_sistema.usuario_logado.lista_pokemons.append(pokemon_pra_adicionar)
 
-        else:
-            self.__tela_pokemon.mostra_mensagem('Erro! Esse treinador ja cadastrou esse pokemon!')
+
+            else:
+                self.__tela_pokemon.mostra_mensagem('Erro! Esse treinador ja cadastrou esse pokemon!')
 
 
     def lista_pokemons(self):
         sit=True
         dados_pokemon=[]
-        for pokemon in self.__pokemon_dao.get_all():
+        for pokemon in self.__pokemons:
             dados_pokemon.append({"nome": pokemon.nome, "tipo": pokemon.tipo,"level": pokemon.level, "ataques": pokemon.ataques, "defesa": pokemon.defesa, "regiao": pokemon.regiao})
             sit=False
         if sit:
